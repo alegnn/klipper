@@ -173,21 +173,12 @@ serial_init(void)
     su->INTENSET.reg = SERCOM_USART_INTENSET_RXC;
     su->CTRLA.reg = areg | SERCOM_USART_CTRLA_ENABLE;
 #if CONFIG_MACH_SAMD21
-<<<<<<< HEAD
-    armcm_enable_irq(SERCOMx_Handler, SERCOMx_IRQn, 0);
-#elif CONFIG_MACH_SAMD51
-    armcm_enable_irq(SERCOMx_Handler, SERCOMx_0_IRQn, 0);
-    armcm_enable_irq(SERCOMx_Handler, SERCOMx_1_IRQn, 0);
-    armcm_enable_irq(SERCOMx_Handler, SERCOMx_2_IRQn, 0);
-    armcm_enable_irq(SERCOMx_Handler, SERCOMx_3_IRQn, 0);
-=======
     armcm_enable_irq(SERCOM0_Handler, SERCOM0_IRQn, 0);
 #elif CONFIG_MACH_SAMX5
     armcm_enable_irq(SERCOM0_Handler, SERCOM0_0_IRQn, 0);
     armcm_enable_irq(SERCOM0_Handler, SERCOM0_1_IRQn, 0);
     armcm_enable_irq(SERCOM0_Handler, SERCOM0_2_IRQn, 0);
     armcm_enable_irq(SERCOM0_Handler, SERCOM0_3_IRQn, 0);
->>>>>>> klipper_original/master
 #endif
 }
 DECL_INIT(serial_init);
