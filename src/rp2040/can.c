@@ -18,15 +18,15 @@
 #include "internal.h" // DMA_IRQ_0_IRQn
 #include "sched.h" // DECL_INIT
 
-#define GPIO_STR_CAN_RX "gpio" __stringify(CONFIG_RP2040_CANBUS_GPIO_RX)
-#define GPIO_STR_CAN_TX "gpio" __stringify(CONFIG_RP2040_CANBUS_GPIO_TX)
+#define GPIO_STR_CAN_RX "gpio" __stringify(CONFIG_RPXXXX_CANBUS_GPIO_RX)
+#define GPIO_STR_CAN_TX "gpio" __stringify(CONFIG_RPXXXX_CANBUS_GPIO_TX)
 DECL_CONSTANT_STR("RESERVE_PINS_CAN", GPIO_STR_CAN_RX "," GPIO_STR_CAN_TX);
 
 static struct can2040 cbus;
 
 // Transmit a packet
 int
-canbus_send(struct canbus_msg *msg)
+canhw_send(struct canbus_msg *msg)
 {
     int ret = can2040_transmit(&cbus, (void*)msg);
     if (ret < 0)
@@ -36,7 +36,7 @@ canbus_send(struct canbus_msg *msg)
 
 // Setup the receive packet filter
 void
-canbus_set_filter(uint32_t id)
+canhw_set_filter(uint32_t id)
 {
     // Filter not implemented (and not necessary)
 }
@@ -73,6 +73,6 @@ can_init(void)
     // Start canbus
     uint32_t pclk = get_pclock_frequency(RESETS_RESET_PIO0_RESET);
     can2040_start(&cbus, pclk, CONFIG_CANBUS_FREQUENCY
-                  , CONFIG_RP2040_CANBUS_GPIO_RX, CONFIG_RP2040_CANBUS_GPIO_TX);
+                  , CONFIG_RPXXXX_CANBUS_GPIO_RX, CONFIG_RPXXXX_CANBUS_GPIO_TX);
 }
 DECL_INIT(can_init);
